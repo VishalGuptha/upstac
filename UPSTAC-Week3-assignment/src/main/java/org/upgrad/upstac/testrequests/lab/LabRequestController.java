@@ -26,24 +26,37 @@ import org.upgrad.upstac.testrequests.TestRequestUpdateService;
 import org.upgrad.upstac.testrequests.flow.TestRequestFlowService;
 import org.upgrad.upstac.users.User;
 
+/**
+ * The Class LabRequestController.
+ */
 @RestController
 @RequestMapping("/api/labrequests")
 public class LabRequestController {
 
+	/** The log. */
 	Logger log = LoggerFactory.getLogger(LabRequestController.class);
 
+	/** The test request update service. */
 	@Autowired
 	private TestRequestUpdateService testRequestUpdateService;
 
+	/** The test request query service. */
 	@Autowired
 	private TestRequestQueryService testRequestQueryService;
 
+	/** The test request flow service. */
 	@Autowired
 	private TestRequestFlowService testRequestFlowService;
 
+	/** The user logged in service. */
 	@Autowired
 	private UserLoggedInService userLoggedInService;
 
+	/**
+	 * Gets the for tests.
+	 *
+	 * @return the for tests
+	 */
 	@GetMapping("/to-be-tested")
 	@PreAuthorize("hasAnyRole('TESTER')")
 	public List<TestRequest> getForTests() {
@@ -52,6 +65,11 @@ public class LabRequestController {
 
 	}
 
+	/**
+	 * Gets the for tester.
+	 *
+	 * @return the for tester
+	 */
 	@GetMapping
 	@PreAuthorize("hasAnyRole('TESTER')")
 	public List<TestRequest> getForTester() {
@@ -62,6 +80,12 @@ public class LabRequestController {
 
 	}
 
+	/**
+	 * Assign for lab test.
+	 *
+	 * @param id the id
+	 * @return the test request
+	 */
 	@PreAuthorize("hasAnyRole('TESTER')")
 	@PutMapping("/assign/{id}")
 	public TestRequest assignForLabTest(@PathVariable Long id) {
@@ -77,6 +101,13 @@ public class LabRequestController {
 		
 	}
 
+	/**
+	 * Update lab test.
+	 *
+	 * @param id the id
+	 * @param createLabResult the create lab result
+	 * @return the test request
+	 */
 	@PreAuthorize("hasAnyRole('TESTER')")
 	@PutMapping("/update/{id}")
 	public TestRequest updateLabTest(@PathVariable Long id, @RequestBody CreateLabResult createLabResult) {

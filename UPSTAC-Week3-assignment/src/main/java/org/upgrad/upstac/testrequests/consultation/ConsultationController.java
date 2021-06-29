@@ -26,24 +26,37 @@ import org.upgrad.upstac.testrequests.TestRequestUpdateService;
 import org.upgrad.upstac.testrequests.flow.TestRequestFlowService;
 import org.upgrad.upstac.users.User;
 
+/**
+ * The Class ConsultationController.
+ */
 @RestController
 @RequestMapping("/api/consultations")
 public class ConsultationController {
 
+	/** The log. */
 	Logger log = LoggerFactory.getLogger(ConsultationController.class);
 
+	/** The test request update service. */
 	@Autowired
 	private TestRequestUpdateService testRequestUpdateService;
 
+	/** The test request query service. */
 	@Autowired
 	private TestRequestQueryService testRequestQueryService;
 
+	/** The test request flow service. */
 	@Autowired
 	TestRequestFlowService testRequestFlowService;
 
+	/** The user logged in service. */
 	@Autowired
 	private UserLoggedInService userLoggedInService;
 
+	/**
+	 * Gets the for consultations.
+	 *
+	 * @return the for consultations
+	 */
 	@GetMapping("/in-queue")
 	@PreAuthorize("hasAnyRole('DOCTOR')")
 	public List<TestRequest> getForConsultations() {
@@ -52,6 +65,11 @@ public class ConsultationController {
 
 	}
 
+	/**
+	 * Gets the for doctor.
+	 *
+	 * @return the for doctor
+	 */
 	@GetMapping
 	@PreAuthorize("hasAnyRole('DOCTOR')")
 	public List<TestRequest> getForDoctor() {
@@ -62,6 +80,12 @@ public class ConsultationController {
 
 	}
 
+	/**
+	 * Assign for consultation.
+	 *
+	 * @param id the id
+	 * @return the test request
+	 */
 	@PreAuthorize("hasAnyRole('DOCTOR')")
 	@PutMapping("/assign/{id}")
 	public TestRequest assignForConsultation(@PathVariable Long id) {
@@ -76,6 +100,13 @@ public class ConsultationController {
 		}
 	}
 
+	/**
+	 * Update consultation.
+	 *
+	 * @param id the id
+	 * @param testResult the test result
+	 * @return the test request
+	 */
 	@PreAuthorize("hasAnyRole('DOCTOR')")
 	@PutMapping("/update/{id}")
 	public TestRequest updateConsultation(@PathVariable Long id, @RequestBody CreateConsultationRequest testResult) {

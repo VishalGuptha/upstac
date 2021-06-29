@@ -1,6 +1,5 @@
 package org.upgrad.upstac.testrequests;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -13,10 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.web.server.ResponseStatusException;
 import org.upgrad.upstac.config.security.UserLoggedInService;
 import org.upgrad.upstac.exception.AppException;
@@ -31,18 +28,24 @@ import lombok.extern.slf4j.Slf4j;
  * The Class LabRequestControllerTest.
  */
 @SpringBootTest
+
+/** The Constant log. */
 @Slf4j
 class LabRequestControllerTest {
 
+	/** The lab request controller. */
 	@InjectMocks
 	LabRequestController labRequestController;
 	
+	/** The test request update service. */
 	@Mock
 	TestRequestUpdateService testRequestUpdateService;
 
+	/** The test request query service. */
 	@Mock
 	TestRequestQueryService testRequestQueryService;
 	
+	/** The user logged in service. */
 	@Mock
 	UserLoggedInService userLoggedInService;
 
@@ -151,6 +154,9 @@ class LabRequestControllerTest {
 	}
 
 	
+	/**
+	 * Calling get for tests returns valid expect same as response.
+	 */
 	@Test
 	public void calling_getForTests_returns_valid_expect_same_as_response() {
 
@@ -165,6 +171,9 @@ class LabRequestControllerTest {
 	}
 	
 	
+	/**
+	 * Calling get for tester returns valid expect same as response.
+	 */
 	@Test
 	public void calling_getForTester_returns_valid_expect_same_as_response() {
 		User user = createUser();
@@ -181,6 +190,11 @@ class LabRequestControllerTest {
 	}
 
 	
+	/**
+	 * Creates the user.
+	 *
+	 * @return the user
+	 */
 	private User createUser() {
         User user = new User();
         user.setId(1L);
@@ -188,6 +202,11 @@ class LabRequestControllerTest {
         return user;
     }
 	
+	/**
+	 * Gets the mocked response from.
+	 *
+	 * @return the mocked response from
+	 */
 	public TestRequest getMockedResponseFrom() {
         TestRequest testRequest = new TestRequest();
 
